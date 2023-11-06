@@ -1,0 +1,25 @@
+# .gitlab-ci.yml for Frontend (front-end project)
+stages:
+  - build
+  - test
+  - deploy
+
+frontend_build:
+  stage: build
+  script:
+    - npm install     # Install dependencies if necessary
+    - npm run build   # Build the React application
+
+frontend_test:
+  stage: test
+  script:
+    - echo "Running tests for the frontend project"
+
+frontend_deploy:
+  stage: deploy
+  script:
+    - scp -r -i $AWS_PRIVATE_KEY build/* ec2-user@3.108.21.241:/path/to/frontend/
+    # Copy the built frontend files to the EC2 instance. Replace the paths and AWS_PRIVATE_KEY.
+
+    - ssh -i $AWS_PRIVATE_KEY ec2-user@3.108.21.241 "cd /path/to/frontend && npm install && npm start"
+    # Navigate to the frontend directory, install dependencies, and start the application.
