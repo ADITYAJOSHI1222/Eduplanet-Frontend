@@ -7,8 +7,10 @@ stages:
 frontend_build:
   stage: build
   script:
-    - npm install     # Install dependencies if necessary
-    - npm run build   # Build the React application
+    - $(node -v)
+    - $(npm -v)
+    - npm install
+    - npm run build
 
 frontend_test:
   stage: test
